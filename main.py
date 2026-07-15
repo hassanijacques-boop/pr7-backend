@@ -20,6 +20,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Depends, Query, Cookie, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, EmailStr
 
 # ── SQLAlchemy ──
@@ -1601,6 +1602,22 @@ def search(q: str = "", scope: str = "all", user: User = Depends(get_current_use
 # ══════════════════════════════════════════════
 # HEALTH CHECK
 # ══════════════════════════════════════════════
+
+# ── Exception handler global ──
+
+class DetailedException(Exception):
+    def __init__(self, detail: str, status_code: int = 500):
+        self.detail = detail
+        self.status_code = status_code
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    import traceback
+    tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+    return JSONResponse(
+        status_code=500,
+        content={"detail": str(exc), "traceback": tb[-2000:]},
+    )
 
 @app.get("/api/health")
 def health_check():
