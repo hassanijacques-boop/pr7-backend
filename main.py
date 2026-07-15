@@ -38,7 +38,7 @@ from jose import JWTError, jwt
 # BASE DE DONNÉES
 # ──────────────────────────────────────────────
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./pr7.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:////tmp/pr7.db")
 # Handle Render's PostgreSQL-style URLs if needed
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
