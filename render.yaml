@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: pr7-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://jacques_mongo:Mongo_976@cluster0.b033so3.mongodb.net/
+      - key: WEBHOOK_SECRET
+        value: pr7-secret-2025

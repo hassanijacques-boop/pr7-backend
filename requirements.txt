@@ -1,10 +1,5 @@
-fastapi
-uvicorn[standard]
-sqlalchemy
-python-jose[cryptography]
-passlib[bcrypt]
-python-multipart
-pydantic
-pydantic-settings
-bcrypt
-python-dotenv
+fastapi==0.104.1
+uvicorn==0.24.0
+pymongo==4.5.0
+python-dotenv==1.0.0
+pydantic==2.5.2
